@@ -41,6 +41,7 @@ public class ScrewStore {
         }
     }
     //Artemis got mad at me, because this did something incorrectly, but frankly i have 0 clue how to fix it :D 
+    //I realised that Artemis was inputing a dumb float value for percentage (e.g. 0.1), and thus it worked weirdly. This code will work for when one inputs a non-float value for percentage.
     public void inflation(double percent) {
         for(Screw i : stock.keySet()){
             i.setPrice(i.getPrice()*percent/100 + i.getPrice());
