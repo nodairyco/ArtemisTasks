@@ -1,5 +1,3 @@
-package fop.w9store;
-
 public enum ScrewDrive {
     SlotDrive, Cross, Hex, Torx;
     @Override
