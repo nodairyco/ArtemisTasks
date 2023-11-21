@@ -1,4 +1,3 @@
-package fop.w9store;
 
 public class Order {
     private Screw screw;
