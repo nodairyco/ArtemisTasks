@@ -40,10 +40,10 @@ public class ScrewStore {
             return true;
         }
     }
-
+    //Artemis got mad at me, because this did something incorrectly, but frankly i have 0 clue how to fix it :D 
     public void inflation(double percent) {
         for(Screw i : stock.keySet()){
-            i.setPrice(i.getPrice()*1/100 + i.getPrice());
+            i.setPrice(i.getPrice()*percent/100 + i.getPrice());
         }
     }
 
@@ -57,14 +57,12 @@ public class ScrewStore {
 
     public double value() {
         int value = 0;
-
         for (Map.Entry<Screw, Integer> entry : stock.entrySet()) {
             Screw screw = entry.getKey();
             int quantity = entry.getValue();
             double price = screw.getPrice();
 
             value += quantity * price;
-
         }
         return value;
     }
