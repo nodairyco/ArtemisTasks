@@ -14,7 +14,8 @@ public class Screw {
     }
     @Override
     public int hashCode(){
-        return Objects.hash(head, length);
+        return head.hashCode() + 7 * Double.hashCode(diameter)
+                + 49 * Double.hashCode(length);
     }
     @Override
     public boolean equals(Object other){
@@ -24,7 +25,6 @@ public class Screw {
             return false;
         } else {
             Screw temp = (Screw) other;
-
             return this.getHead().toString().equals(temp.getHead().toString());
         }
     }
