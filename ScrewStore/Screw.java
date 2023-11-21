@@ -1,4 +1,3 @@
-package fop.w9store;
 import java.util.Objects;
 
 public class Screw {
