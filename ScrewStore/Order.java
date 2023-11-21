@@ -1,4 +1,3 @@
-
 public class Order {
     private Screw screw;
     private int amount;
