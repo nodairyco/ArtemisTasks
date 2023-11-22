@@ -9,7 +9,7 @@ public enum ScrewDrive {
             case SlotDrive -> "Slot Drive";
         };
     }*/
-    //Though this worked Helmut said: "Fruitless be thine endevourse!", and made me do this:
+    //Though this worked Helmut said: "Fruitless be thine endevours!", and made me do this (I just copied it from the solution):
     SlotDrive {
         @Override
         public String toString() {
