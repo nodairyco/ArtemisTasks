@@ -1,4 +1,3 @@
-package pgdp.collections;
 
 public class PenguinSuperMarket {
     private Checkout[] checkouts;
