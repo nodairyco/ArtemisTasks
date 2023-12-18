@@ -1,3 +1,3 @@
-# im quite sure its incorrect
+# most likely correct
 
-but alas thats how life goes
+after a not so thorough peer-review, it's been concluded that it is most likely correct
