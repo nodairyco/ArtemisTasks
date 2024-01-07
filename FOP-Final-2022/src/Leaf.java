@@ -12,8 +12,8 @@ public class Leaf<T> implements Node<T>{
 
     public T get(int i){
         if(i == 0)
-            throw new IndexOutOfBoundsException("This exception was thrown by get");
-        return value;
+            return value;
+        throw new IndexOutOfBoundsException(i);
     }
 
     public void update(int i, T x){
@@ -23,15 +23,7 @@ public class Leaf<T> implements Node<T>{
     }
 
     public Node<T> insert(int i, T x){
-        Inner<T> temp = new Inner<>(value);
-        if(i <= 0){
-            temp.setLeft(new Leaf<>(x));
-            temp.setRight(this);
-        } else {
-            temp.setRight(new Leaf<>(x));
-            temp.setLeft(this);
-        }
-        return temp;
+        return (i <= 0)? new Inner<>(new Leaf<>(x), this) : new Inner<>(this, new Leaf<>(x));
     }
 
     public Node<T> remove(int i){
