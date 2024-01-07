@@ -1,11 +1,13 @@
 public class Inner<T> implements Node<T> {
-    Leaf<T> left;
-    Leaf<T> right;
+    Node<T> left;
+    Node<T> right;
     int lsize;
     int rsize;
     public Inner(Leaf<T> left, Leaf<T> right){
         this.left = left;
         this.right = right;
+        lsize = left.size();
+        rsize = right.size();
     }
     @Override
     public int size(){

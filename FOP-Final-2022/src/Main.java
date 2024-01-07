@@ -10,7 +10,7 @@ public class Main {
         System.out.println(n);
 
         for(String s: t) System.out.println(s);
-        for(int i= n-1;i >= 0; i--) {
+        for(int i = n - 1; i >= 0; i--) {
 
             System.out.println (t.get(i));
             t.remove(1);
