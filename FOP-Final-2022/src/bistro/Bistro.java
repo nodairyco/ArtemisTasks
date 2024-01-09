@@ -57,7 +57,7 @@ public class Bistro{
         while(order == null)
             wait();
         System.out.println("Enjoy!");
-        Thread thread = order;
+        var thread = order;
         order = null;
         while(meal != null)
             wait();
