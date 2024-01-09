@@ -48,17 +48,14 @@ public class Kiuflix<V extends Video> {
             this.title = title;
         }
 
-        @Override
         public String title(){
             return title;
         }
 
-        @Override
         public void view(){
             System.out.println(title);
         }
 
-        @Override
         public void skip(){}
     }
 }

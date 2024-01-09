@@ -110,27 +110,22 @@ public class Line<T extends Thesis> {
     }
 
     public static class MyThesis implements Thesis{
-        @Override
         public String intro(){
             return Line.cmdargs[1];
         }
 
-        @Override
         public String setup(){
             return Line.cmdargs[2];
         }
 
-        @Override
         public String experiments(){
             return Line.cmdargs[3];
         }
 
-        @Override
         public String conclusion(){
             return Line.cmdargs[4];
         }
 
-        @Override
         public String refs(){
             return Line.cmdargs[5];
         }
