@@ -1,3 +1,7 @@
+package indexedtree;
+
+import indexedtree.IndexedTree;
+
 public class Main {
     public static void main(String[] arr) {
 

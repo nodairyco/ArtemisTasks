@@ -7,7 +7,7 @@ public class Main {
         Thread g2 = new Thread(() -> b.dine(20));
         Thread g3 = new Thread(() -> b.dine(30));
         Thread g4 = new Thread(() -> b.dine(40));
-
+        
         g1.start();
         g2.start();
         g3.start();

@@ -36,7 +36,6 @@ public class Bistro{
         }
         order = Thread.currentThread();
         System.out.println("Guest " + Thread.currentThread().getName() + " orders for " + price + " lari");
-        System.out.println("Enjoy!");
         notify();
 
         while(meal == null){
@@ -57,6 +56,7 @@ public class Bistro{
     public synchronized void serve() throws InterruptedException{
         while(order == null)
             wait();
+        System.out.println("Enjoy!");
         Thread thread = order;
         order = null;
         while(meal != null)
