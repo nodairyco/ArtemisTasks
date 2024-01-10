@@ -1,19 +1,18 @@
 package GhostWritingThesis;
 
-
 public class Line<T extends Thesis> {
     private String content;
-    private State state;
+    private Thesis.State state;
     private Thread[] writers;
     //array to store command line arguments
     public static String[] cmdargs = new String[6];
     public Line(T ghost, String title){
         content = title;
-        state = State.INTRO;
+        state = Thesis.State.INTRO;
         writers = new Thread[5];
         writers[0] = new Thread(() -> {
             synchronized (ghost) {
-                while (state != State.INTRO) {
+                while (state != Thesis.State.INTRO) {
                     try {
                         ghost.wait();
                     } catch (InterruptedException e) {
@@ -22,13 +21,13 @@ public class Line<T extends Thesis> {
                 }
 
                 content += ghost.intro();
-                state = State.SETUP;
+                state = Thesis.State.SETUP;
                 ghost.notifyAll();
             }
         });
         writers[1] = new Thread(() -> {
             synchronized (ghost) {
-                while (state != State.SETUP) {
+                while (state != Thesis.State.SETUP) {
                     try {
                         ghost.wait();
                     } catch (InterruptedException e) {
@@ -37,13 +36,13 @@ public class Line<T extends Thesis> {
                 }
 
                 content += ghost.setup();
-                state = State.EXPERIMENTS;
+                state = Thesis.State.EXPERIMENTS;
                 ghost.notifyAll();
             }
         });
         writers[2] = new Thread(() -> {
             synchronized (ghost) {
-                while (state != State.EXPERIMENTS) {
+                while (state != Thesis.State.EXPERIMENTS) {
                     try {
                         ghost.wait();
                     } catch (InterruptedException e) {
@@ -52,13 +51,13 @@ public class Line<T extends Thesis> {
                 }
 
                 content += ghost.experiments();
-                state = State.CONCLUSION;
+                state = Thesis.State.CONCLUSION;
                 ghost.notifyAll();
             }
         });
         writers[3] = new Thread(() -> {
             synchronized (ghost) {
-                while (state != State.CONCLUSION) {
+                while (state != Thesis.State.CONCLUSION) {
                     try {
                         ghost.wait();
                     } catch (InterruptedException e) {
@@ -67,14 +66,14 @@ public class Line<T extends Thesis> {
                 }
 
                 content += ghost.conclusion();
-                state = State.REFS;
+                state = Thesis.State.REFS;
                 ghost.notifyAll();
             }
         });
 
         writers[4] = new Thread(() -> {
             synchronized (ghost) {
-                while (state != State.REFS) {
+                while (state != Thesis.State.REFS) {
                     try {
                         ghost.wait();
                     } catch (InterruptedException e) {
@@ -83,7 +82,7 @@ public class Line<T extends Thesis> {
                 }
 
                 content += ghost.refs();
-                state = State.FINISHED;
+                state = Thesis.State.FINISHED;
                 ghost.notifyAll();
             }
         });
@@ -92,7 +91,7 @@ public class Line<T extends Thesis> {
             writers[i].start();
         }
 
-        if(state == State.FINISHED){
+        if(state == Thesis.State.FINISHED){
             for(int i = 0; i < 5; i++){
                 writers[i].interrupt();
             }
@@ -104,30 +103,36 @@ public class Line<T extends Thesis> {
     }
 
     public static void main(String[] args) {
-        System.arraycopy(args, 0, cmdargs, 0, 6);
-        Line<MyThesis> temp = new Line<>(new MyThesis(), args[0]);
+        class MyThesis implements Thesis{
+            public String intro(){
+                return args[1];
+            }
+
+            public String setup(){
+                return args[2];
+            }
+
+            public String experiments(){
+                return args[3];
+            }
+
+            public String conclusion(){
+                return args[4];
+            }
+
+            public String refs(){
+                return args[5];
+            }
+        }
+        MyThesis myThesis = new MyThesis();
+        Line<MyThesis> temp = new Line<>(myThesis, args[0]);
+        for(int i = 0; i < 5; i++){
+            try {
+                temp.writers[i].join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
         System.out.println(temp.result());
-    }
-
-    public static class MyThesis implements Thesis{
-        public String intro(){
-            return Line.cmdargs[1];
-        }
-
-        public String setup(){
-            return Line.cmdargs[2];
-        }
-
-        public String experiments(){
-            return Line.cmdargs[3];
-        }
-
-        public String conclusion(){
-            return Line.cmdargs[4];
-        }
-
-        public String refs(){
-            return Line.cmdargs[5];
-        }
     }
 }
