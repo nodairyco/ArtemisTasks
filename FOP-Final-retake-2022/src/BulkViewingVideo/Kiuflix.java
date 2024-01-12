@@ -14,24 +14,18 @@ public class Kiuflix<V extends Video> {
         stream = s;
         budget = b;
         cost = c;
+        downloads = new ArrayList<>();
     }
 
     public void bulkView(Predicate<V> pred){
-        var list = stream.filter(pred)
-                .toList();
-        List<V> tempList = new ArrayList<>();
-        int tempBudget = budget;
-        for(V v : list){
-            budget -= cost;
-            if(budget >= 0){
-                tempList.add(v);
-            }
-        }
-        budget = tempBudget;
-        tempList.forEach(t -> {
-            t.view();
-            budget -= cost;
-        });
+        stream.filter(pred)
+                        .forEach(a -> {
+                            if(a != null && budget >= 0 && a.title().length() % 4 == 1){
+                                downloads.add(a);
+                                budget -= cost;
+                                a.view();
+                            }
+                        });
 
         System.out.printf("\nRemaining budget:\t" + budget);
     }
