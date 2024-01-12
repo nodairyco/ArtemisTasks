@@ -31,25 +31,26 @@ public class Kiuflix<V extends Video> {
     }
 
     public static void main(String[] args) throws IOException {
+        class MyVideo implements Video {
+            private String title;
+            public MyVideo(String title){
+                this.title = title;
+            }
+
+            public String title(){
+                return title;
+            }
+
+            public void view(){
+                System.out.println(title);
+            }
+
+            public void skip(){}
+        }
         Kiuflix<MyVideo> kiuflix = new Kiuflix<>(Files.lines(Path.of(args[0]))
                 .map(MyVideo::new), 100, 15);
         kiuflix.bulkView((t) -> t.title().length() % 4 == 1);
     }
 
-    public static class MyVideo implements Video {
-        private String title;
-        public MyVideo(String title){
-            this.title = title;
-        }
 
-        public String title(){
-            return title;
-        }
-
-        public void view(){
-            System.out.println(title);
-        }
-
-        public void skip(){}
-    }
 }
